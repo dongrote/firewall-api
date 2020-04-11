@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+const app = require('../app'),
+  log = require('debug-logger')('server:server'),
+  http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+const port = Number(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', log.error);
+server.on('listening', () => log.info(`listening on port ${port}`));
