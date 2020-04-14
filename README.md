@@ -10,15 +10,14 @@ Implement the smallest amount of code possible to enable a client to perform bas
 
 ## Firewall
 
-#### Block MAC Address
-GET /api/ethernet/block?hwaddr={string}
+#### Block IP Address
+POST /api/inet4?hostname={string}&action=block
 
-#### Query Blocked Status
-GET /api/ethernet/blocked?hwaddr={string}
+#### Unblock IP Address
+POST /api/inet4?hostname={string}&action=unblock
 
-#### Unblock MAC Address
-GET /api/ethernet/unblock?hwaddr={string}
-
+#### Query Blocked Devices
+GET /api/inet4/blocked
 
 ## Wake On Lan
 
