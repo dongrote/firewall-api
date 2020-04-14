@@ -4,6 +4,8 @@ const app = express();
 exports = module.exports = app;
 
 const _ = require('lodash'),
+  log = require('debug-logger')('firewall-api'),
+  HttpError = require('http-error-constructor'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
   router = require('./routes');
@@ -17,5 +19,6 @@ app.use(router);
 app.use((req, res, next) => next(new HttpError(404)));
 app.use((err, req, res, next) => {
   const statusCode = _.get(err, 'statusCode', 500);
+  log.error(err);
   res.status(statusCode).send(_.get(err, 'message', 'Internal Server Error'));
 });
