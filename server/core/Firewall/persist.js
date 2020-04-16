@@ -18,6 +18,7 @@ exports = module.exports = persistPath => new Promise((resolve, reject) => {
           .on('error', rej)
           .on('exit', () => {
             log.info('iptables-save exited');
+            outputStream.end();
             res();
           })),
         new Promise((res) => outputStream.on('finish', () => {
