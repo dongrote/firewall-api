@@ -10,19 +10,19 @@ exports = module.exports = persistPath => new Promise((resolve, reject) => {
       reject(err);
     })
     .on('open', () => {
-      log.info(`created writeStream to ${persistPath}`);
-      log.info('spawning iptables-save command');
+      log.debug(`created writeStream to ${persistPath}`);
+      log.debug('spawning iptables-save command');
       const cmd = cp.spawn('iptables-save', [], {stdio: ['ignore', outputStream, 'ignore']});
       return Promise.all([
         new Promise((res, rej) => cmd
           .on('error', rej)
           .on('exit', () => {
-            log.info('iptables-save exited');
+            log.debug('iptables-save exited');
             outputStream.end();
             res();
           })),
         new Promise((res) => outputStream.on('finish', () => {
-          log.info('writeStream finished');
+          log.debug('writeStream finished');
           res();
         })),
       ])
