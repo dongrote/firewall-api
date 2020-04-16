@@ -15,6 +15,9 @@ exports = module.exports = (req, res, next) => {
       .then(() => core.Firewall.persist(env.firewallPersistPath()))
       .then(() => log.info('persisted firewall rules'))
       .then(() => res.sendStatus(204))
-      .catch(next)
+      .catch(err => {
+        log.error(err);
+        next(err);
+      })
     : Promise.resolve(next(new HttpError(400)));
 };
