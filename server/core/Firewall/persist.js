@@ -5,10 +5,7 @@ const fs = require('fs'),
 
 exports = module.exports = persistPath => new Promise((resolve, reject) => {
   const outputStream = fs.createWriteStream(persistPath, {mode: 0o644})
-    .on('error', err => {
-      log.error(err);
-      reject(err);
-    })
+    .on('error', reject)
     .on('open', () => {
       log.debug(`created writeStream to ${persistPath}`);
       log.debug('spawning iptables-save command');
@@ -27,9 +24,6 @@ exports = module.exports = persistPath => new Promise((resolve, reject) => {
         })),
       ])
       .then(() => resolve())
-      .catch(err => {
-        log.error(err);
-        reject(err);
-      });
+      .catch(reject);
     });
 });
