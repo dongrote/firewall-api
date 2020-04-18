@@ -11,4 +11,4 @@ exports = module.exports = macAddress => new Promise((resolve, reject) => {
   cp.spawn('etherwake', [sanitizedMacAddress], {stdio: 'ignore'})
     .on('error', reject)
     .on('exit', () => resolve());
-})
+});
