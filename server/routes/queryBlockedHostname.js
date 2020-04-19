@@ -8,6 +8,6 @@ exports = module.exports = (req, res, next) => {
   return hostname
     ? core.Firewall.inet4.isBlocked(hostname)
       .then(blocked => res.json({hostname, blocked}))
-      .catch(next)
+      .catch(error => res.json({error}))
     : Promise.resolve(next(new HttpError(400)));
 };
