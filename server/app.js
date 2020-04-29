@@ -8,6 +8,7 @@ const _ = require('lodash'),
   HttpError = require('http-error-constructor'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
+  httpAuthorization = require('./middleware/httpAuthorization'),
   router = require('./routes');
 
 app.use(logger('dev'));
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(httpAuthorization);
 app.use(router);
 app.use((req, res, next) => next(new HttpError(404)));
 app.use((err, req, res, next) => {
