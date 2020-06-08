@@ -19,7 +19,7 @@ router.get('/api/inet4/blocked', queryBlockedHostname);
 router.get('/api/ethernet/wol', wakeupHost);
 router.get('/api/ethernet/online', queryOnlineHosts);
 router.get('/api/ethernet/arp', queryHostHardwareAddress);
-
+router.get('/api/throttle', queryThrottleState);
 router.get('/api/throttle/hosts', queryThrottledHosts);
 router.get('/api/throttle/hosts/add', requireAdminRole, addThrottledHost);
 router.get('/api/throttle/hosts/remove', requireAdminRole, removeThrottledHost);
