@@ -55,6 +55,7 @@ const resolvehostname = hostname => new Promise((resolve, reject) => {
 
 const createfilter = (iface, hostname) => resolvehostname(hostname)
   .then(ipaddr => new Promise((resolve, reject) => {
+    console.log(`creating filter for ${hostname} (${ipaddr})`);
     const args = [
       'filter',
       'add',
