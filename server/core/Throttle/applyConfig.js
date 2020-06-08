@@ -76,7 +76,10 @@ const createfilter = (iface, hostname) => resolvehostname(hostname)
     ];
     cp.spawn('tc', args)
       .on('error', reject)
-      .on('exit', () => resolve());
+      .on('exit', () => resolve())
+      .stderr.on('data', chunk => {
+        console.log('stderr: ', chunk.toString());
+      });
   }));
 
 exports = module.exports = () => reset()
