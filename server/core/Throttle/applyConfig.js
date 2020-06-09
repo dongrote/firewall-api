@@ -2,6 +2,7 @@
 const reset = require('./reset'),
   cp = require('child_process'),
   dns = require('dns'),
+  log = require('debug-logger')('core:Throttle:applyConfig'),
   loadConfig = require('./loadConfig');
 
 const createqdisc = iface => new Promise((resolve, reject) => {
@@ -78,9 +79,7 @@ const createfilter = (iface, hostname) => resolvehostname(hostname)
     cp.spawn('tc', args)
       .on('error', reject)
       .on('exit', () => resolve())
-      .stderr.on('data', chunk => {
-        console.log('stderr: ', chunk.toString());
-      });
+      .stderr.on('data', chunk => log.error(chunk.toString()));
   }));
 
 exports = module.exports = () => reset()
@@ -92,6 +91,7 @@ exports = module.exports = () => reset()
         if (i < throttleConfig.hosts.length) {
           const hostname = throttleConfig.hosts[i];
           createfilter(throttleConfig.interface, hostname)
+            .catch(err => log.error(err))
             .then(() => setImmediate(nextHost, i + 1))
             .catch(reject);
         } else {
