@@ -91,7 +91,7 @@ exports = module.exports = () => reset()
         if (i < throttleConfig.hosts.length) {
           const hostname = throttleConfig.hosts[i];
           createfilter(throttleConfig.interface, hostname)
-            .catch(err => log.error(err)))
+            .catch(err => log.error(err))
             .then(() => setImmediate(nextHost, i + 1))
             .catch(reject);
         } else {
