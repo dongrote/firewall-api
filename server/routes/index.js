@@ -12,6 +12,7 @@ const requireAdminRole = require('../middleware/requireRole')('admin'),
   addThrottledHost = require('./addThrottledHost'),
   removeThrottledHost = require('./removeThrottledHost'),
   queryThrottleBandwidth = require('./queryThrottleBandwidth'),
+  queryHostUsage = require('./queryHostBandwidthUsage'),
   setThrottleBandwidth = require('./setThrottleBandwidth');
 
 router.get('/health', (req, res) => res.sendStatus(200));
@@ -26,3 +27,4 @@ router.get('/api/throttle/hosts/add', requireAdminRole, addThrottledHost);
 router.get('/api/throttle/hosts/remove', requireAdminRole, removeThrottledHost);
 router.get('/api/throttle/bandwidth', queryThrottleBandwidth);
 router.post('/api/throttle/bandwidth', requireAdminRole, setThrottleBandwidth);
+router.get('/api/throttle/usage', queryHostUsage);
