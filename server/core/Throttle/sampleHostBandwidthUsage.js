@@ -15,7 +15,7 @@ exports = module.exports = (hostname, sampleTime) => new Promise((resolve, rejec
         .forEach(line => {
           totalBytes += Number(line.split(' ')[0]);
         });
-      resolve(totalBytes / realSampleTime);
+      resolve((totalBytes / realSampleTime) * 8);
     });
   child.stdout.on('data', chunk => {
     stdout = Buffer.concat([stdout, chunk]);
