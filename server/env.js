@@ -7,4 +7,5 @@ exports = module.exports = {
   defaultThrottleInterface: () => _.get(process.env, 'DEFAULT_THROTTLE_INTERFACE', 'eth0'),
   defaultThrottleBandwidth: () => _.get(process.env, 'DEFAULT_THROTTLE_BANDWIDTH', '5mbit'),
   tokenIssuerUri: () => _.get(process.env, 'TOKEN_ISSUER_URI'),
+  wakeOnLanInterface: () => _.get(process.env, 'WAKE_ON_LAN_INTERFACE', 'eth0'),
 };
