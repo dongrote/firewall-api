@@ -1,5 +1,6 @@
 'use strict';
 const _ = require('lodash'),
+  env = require('../env'),
   core = require('../core'),
   HttpError = require('http-error-constructor');
 
@@ -8,7 +9,7 @@ exports = module.exports = (req, res, next) => {
   if (!hwaddr) {
     return Promise.resolve(next(new HttpError(400)));
   }
-  return core.WakeOnLan.etherwake(hwaddr)
+  return core.WakeOnLan.etherwake(hwaddr, {iface: env.wakeOnLanInterface()})
     .then(() => res.sendStatus(204))
     .catch(err => {
       if (err.message.startsWith('invalid MAC')) {
